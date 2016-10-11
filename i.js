@@ -95,4 +95,4 @@ function animation() {
   window.requestAnimationFrame(animation);
 }
 animation();
-$('div.topcn').html('<span>\u6881</span><span>\u76FC</span><span>\u76FC</span>');
+$('div.topcn').html('<span>l</span><span>k</span><span>z</span><span>.</span><span>p</span><span>w</span>');
