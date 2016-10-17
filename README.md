@@ -1,1 +1,1 @@
-# kzli.github.io => [lkz.pw](http://lkz.pw) 
+# Open Page -> [lkz.pw](http://lkz.pw) 
