@@ -5659,8 +5659,3 @@
 #54.230.74.143 secure.static.tumblr.com
 # tumblr end
 # Modified hosts End
-
-
-#0.0.0.0 x.jd.com
-0.0.0.0 pos.baidu.com
-0.0.0.0 inte.sogou.com
