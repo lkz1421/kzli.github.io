@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, racaljk.
-# https://lkz.pw/hosts
+# https://lkz.pw/hosts.txt
 # Last updated: 2017-01-14
 
 # Localhost (DO NOT REMOVE)
