@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2017, racaljk.
+# Copyright (c) 2014-2017.
 # https://lkz.pw/hosts.txt
 # Last updated: 2017-01-18
 
