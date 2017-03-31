@@ -1,306 +1,160 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Keywords" content="kzli，lkz.pw" />
-    <meta name="description" content="kzli，lkz.pw" />
-    <title>lkz.pw</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/slidefolio.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
-  </head>
-<body>
-    <!-- Header Area -->
-    <div id="top" class="header">
-      <div class="vert-text">
-	<!--img class="img-rounded" alt="Logo" src="./img/logo.jpg"/-->
-        <h2><em>Welcome to lkz.pw</em></h2>
-	<ul class="list-inline">
-            <li><i class="fa fa-facebook fa-3x"></i></li>
-            <li><i class="fa fa-twitter fa-3x"></i></li>
-	    <li><i class="fa fa-google-plus fa-3x"></i></li>
-	    <li><i class="fa fa-pinterest fa-3x"></i></li>
-	    <li><i class="fa fa-github fa-3x"></i></li>
-        </ul>	
-	<br>
-	<a href="#about" class="btn btn-top">Learn More</a>
-      </div>
+---
+layout: default
+---
+
+<div class="page clearfix" index>
+    <div class="left">
+        <h1>Welcome to HyG's Blog!</h1>
+        <small>这里记录着我的前端学习之路</small>
+        <hr>
+        <ul>
+            {% for post in paginator.posts %}
+              <li>
+                <h2>
+                  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>{{ post.date | date: "%F" }}
+                    </div>
+                    <div class="label-card">
+                        {% if post.author %}<i class="fa fa-user"></i>{{ post.author }}
+                        {% endif %}
+                    </div>
+                    <div class="label-card">
+                        {% if page.meta %}<i class="fa fa-key"></i>{{ page.meta }}  {% endif %}
+                    </div>
+
+                    <div class="label-card">
+                    {% include category.html %}
+                    </div>
+
+                    <div class="label-card">
+                    {% include tag.html %}
+                    </div>
+                </div>
+                <div class="excerpt">
+                    {{post.excerpt}}
+                </div>
+                <div class="read-all">
+                    <a  href="{{ post.url | prepend: site.baseurl }}"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            {% endfor %}
+        </ul>
+
+
+
+        <!-- Pagination links -->
+        <div class="pagination">
+          {% if paginator.previous_page %}
+            <a href="/index.html" class="previous"><i class="fa fa-angle-double-left"></i></a>
+            <a href="{{ paginator.previous_page_path }}" class="previous"><i class="fa fa-angle-left"></i></a>
+          {% else %}
+            <span class="previous disable"><i class="fa fa-angle-double-left"></i></span>
+            <span class="previous disable"><i class="fa fa-angle-left"></i></span>
+          {% endif %}
+          <span class="page_number ">{{ paginator.page }}/{{ paginator.total_pages }}</span>
+          {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path }}" class="next"><i class="fa fa-angle-right"></i></a>
+            <a href="/page{{ paginator.total_pages }}" class="next"><i class="fa fa-angle-double-right"></i></a>
+          {% else %}
+            <span class="next disable"><i class="fa fa-angle-right"></i></span>
+            <span class="next disable"><i class="fa fa-angle-double-right"></i></span>
+          {% endif %}
+        </div>
     </div>
-    <!-- /Header Area -->
-  <div id="nav">
-    <!-- Navigation -->
-    <nav class="navbar navbar-new" role="navigation">
-    <div class="container">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mobilemenu">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a href="#" class="navbar-brand">kzli</a>
-  </div>
-  <div class="collapse navbar-collapse" id="mobilemenu">
-    <ul class="nav navbar-nav navbar-right text-center">
-	<li><a href="#top"><i class="service-icon fa fa-home"></i>&nbsp;Home</a></li>
-        <li><a href="#about"><i class="service-icon fa fa-info"></i>&nbsp;About</a></li>
-        <li><a href="#portfolio"><i class="service-icon fa fa-camera"></i>&nbsp;Portfolio</a></li>
-    </ul>
-  </div><!-- /.navbar-collapse -->
-  </div>
-</nav>
-    <!-- /Navigation -->
-</div>	
-    <!-- About -->
-    <div id="about" class="about_us">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2 text-center">
-            <h2>About Us</h2>
-            <p class="lead">Lorem...</p>
-          </div>
+    <!-- <button class="anchor"><i class="fa fa-anchor"></i></button> -->
+    <div class="right">
+        <div class="wrap">
+            <div class="side">
+                <div>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    Recent Posts
+                </div>
+                <ul class="content-ul" recent>
+                    {% for post in site.posts offset: 0 limit: 10  %}
+                        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="side ">
+                <div>
+                    <i class="fa fa-th-list"></i>
+                    Categories
+                </div>
+                <ul class="content-ul" cate>
+                    {% for category in site.categories %}
+                    <li>
+                        <a href="{{ root_url }}/{{ site.category_dir }}#{{ category | first }}" class="categories-list-item" cate="{{ category | first }}">
+                            <span class="name">
+                                {{ category | first }}
+                            </span>
+                            <span class="badge">{{ category | last | size }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <div class="side">
+                <div>
+                    <i class="fa fa-tags"></i>
+                    Tags
+                </div>
+                <div class="tags-cloud">
+                    {% assign first = site.tags.first %}
+                    {% assign max = first[1].size %}
+                    {% assign min = max %}
+                    {% for tag in site.tags offset:1 %}
+                      {% if tag[1].size > max %}
+                        {% assign max = tag[1].size %}
+                      {% elsif tag[1].size < min %}
+                        {% assign min = tag[1].size %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% if max == min %}
+                        {% assign diff = 1 %}
+                    {% else %}
+                        {% assign diff = max | minus: min %}
+                    {% endif %}
+
+                    {% for tag in site.tags %}
+                      {% assign temp = tag[1].size | minus: min | times: 36 | divided_by: diff %}
+                      {% assign base = temp | divided_by: 4 %}
+                      {% assign remain = temp | modulo: 4 %}
+                      {% if remain == 0 %}
+                        {% assign size = base | plus: 9 %}
+                      {% elsif remain == 1 or remain == 2 %}
+                        {% assign size = base | plus: 9 | append: '.5' %}
+                      {% else %}
+                        {% assign size = base | plus: 10 %}
+                      {% endif %}
+                      {% if remain == 0 or remain == 1 %}
+                        {% assign color = 9 | minus: base %}
+                      {% else %}
+                        {% assign color = 8 | minus: base %}
+                      {% endif %}
+                      <a href="{{ root_url }}/{{ site.tag_dir }}#{{ tag[0] }}" style="font-size: {{ size }}pt; color: #{{ color }}{{ color }}{{ color }};">{{ tag[0] }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- <div class="side">
+                <div>
+                    <i class="fa fa-external-link"></i>
+                    Links
+                </div>
+                <ul  class="content-ul">
+
+                </ul>
+            </div> -->
         </div>
-	  </div>
     </div>
-    <!-- /About -->
-
-    <!-- Portfolio -->
-    <div id="portfolio" class="portfolio">
-    <div class="container">
-    <div class="row push50">
-          <div class="col-md-4 col-md-offset-4 text-center">
-            <h2>Picture</h2>
-			<h3>
-			<span class="filter label label-default" data-filter="all">ALL</span>
-			<span class="filter label label-default" data-filter="bw">B&amp;W</span>
-			<span class="filter label label-default" data-filter="nature">Nature</span>
-			<span class="filter label label-default" data-filter="portraits">Portraits</span>
-	</h3>
-            <hr>
-          </div>
-        </div>
-		
-		<div class="row">
-		
-		<div class="gallery">
-		
-    		  <ul id="Grid" class="gcontainer">
-    		    <li class="col-md-4 col-sm-4 col-xs-12 mix bw portraits" data-cat="graphics">
-              <a data-toggle="modal" data-target="#portrait1" class="mix-cover">
-                <img class="horizontal" src="img/portrait1-sm.jpg" alt="placeholder">
-      		      <span class="overlay"><span class="valign"></span><span class="title">Portrait 1</span></span>
-              </a>                
-      		  </li>
-    		    <li class="col-md-4 col-sm-4 col-xs-12 mix portraits" data-cat="graphics">
-                <a data-toggle="modal" data-target="#portrait2" class="mix-cover">
-                  <img class="horizontal" src="img/portrait2.jpg" alt="placeholder">
-        		      <span class="overlay"><span class="valign"></span><span class="title">Portrait 2</span></span>
-                </a>                
-      		  </li>
-			  <li class="col-md-4 col-sm-4 col-xs-12 mix nature" data-cat="nature">
-                <a data-toggle="modal" data-target="#nature1" class="mix-cover">
-                  <img class="horizontal" src="img/nature1.jpg" alt="placeholder">
-        		      <span class="overlay"><span class="valign"></span><span class="title">Nature 1</span></span>
-        		    </a>
-      		  </li>
-      		  <li class="col-md-4 col-sm-4 col-xs-12 mix portraits" data-cat="portraits">
-                <a data-toggle="modal" data-target="#portrait3" class="mix-cover">
-                  <img class="horizontal" src="img/portrait3.jpg" alt="placeholder">
-        		      <span class="overlay"><span class="valign"></span><span class="title">Portrait 3</span></span>
-        		    </a>
-      		  </li>
-			  <li class="col-md-4 col-sm-4 col-xs-12 mix portraits" data-cat="portraits">
-                <a data-toggle="modal" data-target="#portrait5" class="mix-cover">
-                  <img class="horizontal" src="img/portrait5.jpg" alt="placeholder">
-        		       <span class="overlay"><span class="valign"></span><span class="title">Portrait 5</span></span>
-        		    </a>
-      		  </li>
-			  <li class="col-md-4 col-sm-4 col-xs-12 mix nature" data-cat="nature">
-                <a data-toggle="modal" data-target="#nature" class="mix-cover">
-                  <img class="horizontal" src="img/nature.jpg" alt="placeholder">
-        		      <span class="overlay"><span class="valign"></span><span class="title">Nature</span></span>
-        		    </a>
-      		  </li>
-      		  <li class="col-md-4 col-sm-4 col-xs-12 mix portraits" data-cat="portrait">
-                <a data-toggle="modal" data-target="#portrait4" class="mix-cover green">
-                  <img class="vertical" src="img/portrait4.jpg" alt="portrait 4">
-                  <span class="overlay"><span class="valign"></span><span class="title">Portrait 4</span></span>           
-        		    </a>
-      		  </li>
-			  <li class="col-md-4 col-sm-4 col-xs-12 mix bw nature all" data-cat="portrait">
-                <a data-toggle="modal" data-target="#forest" class="mix-cover green">
-                  <img class="vertical" src="img/forest.jpg" alt="Forest">
-                   <span class="overlay"><span class="valign"></span><span class="title">Forest</span></span>                    
-        		    </a>
-      		  </li>
-			  <li class="col-md-4 col-sm-4 col-xs-12 mix bw nature all" data-cat="bw">
-                <a data-toggle="modal" data-target="#bw1" class="mix-cover green">
-                  <img class="vertical" src="img/bw1.jpg" alt="Black and White">
-                   <span class="overlay"><span class="valign"></span><span class="title">Black &amp; White</span></span>                  
-        		    </a>
-      		  </li>
-    		  </ul>   
-			  
-<!-- Load Photo in Modal -->			  
-   <div class="modal fade" id="portrait1" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Portrait 1</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="Portrait1" src="img/portrait1.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-  <div class="modal fade" id="portrait2" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Portrait 2</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="Portrait1" src="img/portrait2.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="portrait3" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Portrait 3</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="Portrait1" src="img/portrait3.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="portrait4" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Portrait 4</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="Portrait1" src="img/portrait4.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="portrait5" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Portrait 5</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="Portrait1" src="img/portrait5.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="nature" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Nature</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="nature" src="img/nature.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="nature1" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Nature 1</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="nature" src="img/nature1.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<div class="modal fade" id="forest" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Forest</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="forest" src="img/forest.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="bw1" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center">Black and White</h4>
-      </div>
-      <div class="modal-body">
-       <img class="thumbnail" alt="forest" src="img/bw1.jpg"/>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<!-- /Load Photo in Modal -->	
-		</div>	
-      </div>
-		</div>
-      </div>
-    <!-- /Portfolio -->
-
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3 text-center">
-           <h2>Thank You</h2>
-           <em>Copyright &copy; lkz.pw 2016</em>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- /Footer -->
-    <!-- Bootstrap core JavaScript -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-	<script src="js/jquery-scrolltofixed-min.js"></script>
-	<script src="js/jquery.vegas.js"></script>
-	<script src="js/jquery.mixitup.min.js"></script>
-	<script src="js/jquery.validate.min.js"></script>
-	<script src="js/script.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="index.js"></script>
-  </body>
-</html>
+</div>
+<!-- <script src="{{ "/js/scroll.min.js " | prepend: site.baseurl }}" charset="utf-8"></script> -->
+<!-- <script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script> -->
