@@ -46,7 +46,7 @@ db.sql('insert into user(id,name) values(?,?)',['x01','ts']);
 db.sql('insert into user(id,name) values(?,?)',['x02','lqq']);
 
 //select
-db.sql('select * from user where name like ?',['%s%']).then(r=>{
+db.sql('select * from user where name like ?',['%s%']).then(r => {
 	for(let o of r) console.info(o);
 });
 
