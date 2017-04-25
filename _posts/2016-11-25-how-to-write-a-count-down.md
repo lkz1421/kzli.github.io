@@ -9,7 +9,7 @@ author: kzli
 * content
 {:toc}
 
-# 三个核心方法
+## 三个核心方法
 
 * openDatabase: 这个方法使用现有数据库或创建新数据库对象。
 
