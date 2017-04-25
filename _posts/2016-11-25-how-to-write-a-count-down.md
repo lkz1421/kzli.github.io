@@ -2,7 +2,7 @@
 layout: post
 title:  "Web SQL Database"
 categories: JavaScript
-tags:  countdown JavaScript
+tags:  JavaScript
 author: kzli
 ---
 
