@@ -13,7 +13,7 @@ type: page
 
 一个农村人
 
-* 1995 ~ init
+* 1995 ~ 
 
 ## 联系我
 
@@ -26,7 +26,7 @@ type: page
 
 ## 友情链接
 
-[百度](http://baidu.com)
+[码云](http://git.oschina.net/kzli)
 
 ## Comments
 
